@@ -1,3 +1,3 @@
 {
-  "mongoURI": "mongodb+srv://Mano:Mano123@student-report-card.kivbe.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"  
+  "mongoURI": "mongodb+srv://Mano:Mano123@student-report-card.kivbe.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 }
