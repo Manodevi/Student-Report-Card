@@ -5,7 +5,7 @@ const StudentSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  class: {
+  std: {
     type: Number,
     required: true
   },
