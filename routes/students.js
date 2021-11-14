@@ -11,15 +11,28 @@ router.post(
     '/', 
     [
       check('name', 'Name is required').not().isEmpty(),
-      check('class', 'Class is required').not().isEmpty(),
+      check('std', 'Class is required').not().isEmpty(),
       check('section', 'Section is required').not().isEmpty(),
     ],
-    (req, res) => {  
+    async (req, res) => {  
+      console.log('Student entered');
       const errors = validationResult(req);
       if(!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array()});
-      }
-      res.send('Added');
+      }      
+      
+      const { name, std, section } = req.body;
+
+      try {
+        let student = new Student({ name, std, section });
+        await student.save();
+
+        res.json({ studentId: student.id });
+        res.send('Student Added');
+      } catch (error) {
+        console.log(error);
+        res.status(500).send('Server Error');
+      }      
     }
   );
 
