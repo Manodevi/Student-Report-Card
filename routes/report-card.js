@@ -45,4 +45,22 @@ router.post(
     }
   );
 
+// @route   GET api/report-card 
+// @desc    Get report card of a student
+// @access  Public
+router.get(
+    '/:id',
+    async (req, res) => {
+      try {
+        // get report card list by student id and sort it by term
+        const reportCards = await ReportCard.find({ student: req.params.id}).sort({date: 1});
+        res.json(reportCards);
+      } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Server Error');
+      }
+    }
+  );
+
+
 module.exports = router;
