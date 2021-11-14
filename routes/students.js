@@ -53,6 +53,22 @@ router.get(
   }
 );
 
+// @route   GET api/students/:id
+// @desc    Get a student details
+// @access  Public
+router.get(
+  '/:id',
+  async (req, res) => {
+    try {
+      // get a student
+      const students = await Student.findById(req.params.id).sort({name: 1});
+      res.json(students);
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).send('Server Error');
+    }
+  }
+);
 
 // @route   PUT api/students/:id
 // @desc    Update Student
@@ -84,6 +100,5 @@ router.put(
     }
   }
 );
-
 
 module.exports = router;
