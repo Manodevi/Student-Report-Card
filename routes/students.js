@@ -54,4 +54,36 @@ router.get(
 );
 
 
+// @route   PUT api/students/:id
+// @desc    Update Student
+// @access  Public
+router.put(
+  '/:id',
+  async (req, res) => {
+    try {
+      console.log('Update Student');
+      const { name, std, section } = req.body;
+
+      // Build Student object
+      const studentFields = {};
+      if(name) studentFields.name = name;
+      if(std) studentFields.std = std;
+      if(section) studentFields.section = section;
+
+      let student = await Student.findById(req.params.id);
+
+      if(!student) return res.status(404).json({ msg: "Student not found" });
+
+      student = await Student.findByIdAndUpdate(req.params.id, {
+        $set: studentFields });
+
+      res.json(student);
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).send('Server Error');
+    }
+  }
+);
+
+
 module.exports = router;
