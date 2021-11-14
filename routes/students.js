@@ -62,6 +62,9 @@ router.get(
     try {
       // get a student
       const students = await Student.findById(req.params.id).sort({name: 1});
+      
+      if(!students) return res.status(404).json({msg: "Student not found"});
+      
       res.json(students);
     } catch (error) {
       console.error(error.message);
@@ -96,6 +99,26 @@ router.put(
       res.json(student);
     } catch (error) {
       console.error(error.message);
+      res.status(500).send('Server Error');
+    }
+  }
+);
+
+// @route   DELETE /api/students/:id
+// @desc    Delete a student details
+// @access  Public
+router.delete(
+  '/:id',
+  async (req, res) => {
+    try {      
+      const student = await Student.findById(req.params.id);
+      if(!student) return res.status(404).json({ msg: "Student not found" });
+      
+      await Student.findByIdAndDelete(req.params.id);
+      
+      res.json({msg: "Student Details Deleted"});
+    } catch (error) {
+      console.log(error);
       res.status(500).send('Server Error');
     }
   }
