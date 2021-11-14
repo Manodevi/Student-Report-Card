@@ -27,8 +27,8 @@ router.post(
         let student = new Student({ name, std, section });
         await student.save();
 
-        res.json({ studentId: student.id });
-        res.send('Student Added');
+        res.json({ id: student.id });
+        // res.send('Student Added');
       } catch (error) {
         console.log(error);
         res.status(500).send('Server Error');
