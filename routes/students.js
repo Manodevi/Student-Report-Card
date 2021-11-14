@@ -36,4 +36,22 @@ router.post(
     }
   );
 
+// @route   GET api/students
+// @desc    Get all students
+// @access  Public
+router.get(
+  '/',
+  async (req, res) => {
+    try {
+      // get all students
+      const students = await Student.find({}).sort({name: 1});
+      res.json(students);
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).send('Server Error');
+    }
+  }
+);
+
+
 module.exports = router;
