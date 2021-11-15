@@ -1,8 +1,11 @@
 import './App.css';
+import Navbar from './components/layout/Navbar';
 
 const App = () => {
   return (
-    <div className="App">My Student Report Card App</div>
+    <div className="App">
+      <Navbar />
+    </div>
   );
 }
 
