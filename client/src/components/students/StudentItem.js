@@ -4,12 +4,19 @@ import StudentContext from '../../context/studentReportCard/studentContext';
 
 const StudentItem = ({student}) => {
   const context = useContext(StudentContext);
+  const { deleteStudent, setStudent, clearStudent } = context;
   const { id, name, std, section } = student;
 
   const onDelete = e => {
     e.preventDefault();
-    context.deleteStudent(id);
+    deleteStudent(id);   
+    clearStudent();
   };
+
+  const onEdit = e => {
+    e.preventDefault();
+    setStudent(student);
+  }
 
   return (
     <div className="card bg-light">
@@ -17,7 +24,7 @@ const StudentItem = ({student}) => {
         {name}{' '}<span className={'badge badge-primary'}>{std}{section.toUpperCase()}</span>
       </h3>
       <p>
-        <button className="btn btn-dark btn-sm">Edit</button>
+        <button onClick={onEdit} className="btn btn-dark btn-sm">Edit</button>
         <button onClick={onDelete} className="btn btn-danger btn-sm">Delete</button>
       </p>
     </div>
