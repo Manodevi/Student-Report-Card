@@ -1,7 +1,13 @@
+import Students from '../students/Students';
+import StudentForm from '../students/StudentForm';
+
 const Home = () => {
   return (
-    <div>
-      <h1>Home</h1>
+    <div className="grid-2">
+      <div>
+        <StudentForm />
+      </div>
+      <div><Students /></div>
     </div>
   );
 };
