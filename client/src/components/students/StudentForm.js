@@ -1,14 +1,27 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import StudentContext from '../../context/studentReportCard/studentContext';
 
 const StudentForm  = () => {
   const context = useContext(StudentContext);
+  const { addStudent, currentStudent, clearStudent } = context;
   const [student, setStudent] = useState({
     name: '',
     std: '',
     section: ''
   });
 
+  useEffect(() => {
+    if(currentStudent !== null) {
+      setStudent(currentStudent);  
+    } else {
+      setStudent({
+        name: '',
+        std: '',
+        section: ''
+      });
+    }
+  }, [currentStudent]);
+  
   const { name, std, section } = student;
   const stdOption = [];
   for(let i = 1; i <=12; i++) {
@@ -20,9 +33,14 @@ const StudentForm  = () => {
     setStudent({...student, [e.target.name]: e.target.value });    
   };
 
+  const clearAll = e => {
+    e.preventDefault();
+    clearStudent();
+  };
+
   const onSubmit = e => {
     e.preventDefault();
-    context.addStudent(student);
+    addStudent(student);
     setStudent({
       name: '',
       std: '',
@@ -32,7 +50,7 @@ const StudentForm  = () => {
 
   return (
     <form onSubmit={onSubmit}>
-      <h2 className="text-primary">Add Student</h2>
+      <h2 className="text-primary">{currentStudent? 'Edit Contact' : 'Add Student'}</h2>
       <input type="text" placeholder="Name" name="name" value={name} onChange={onChange} />
       <select type="number" placeholder="Class" name="std" value={std} onChange={onChange}>
         <option value="" disbaled selected>Select Class</option>
@@ -43,8 +61,15 @@ const StudentForm  = () => {
 
       <input type="text" placeholder="Section" name="section" value={section} onChange={onChange} />
       <div>
-        <input type="Submit" value="Add Student" className="btn btn-primary btn-block" />
+        <input type="Submit" value={currentStudent? 'Update Contact' : 'Add Student'} className="btn btn-primary btn-block" />
       </div>
+      {currentStudent && 
+      <div>
+        <button onClick={clearAll} className="btn btn-light btn-block">
+            Clear
+        </button>
+      </div>}
+      
     </form>
   );
 };
