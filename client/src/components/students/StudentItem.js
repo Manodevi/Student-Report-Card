@@ -1,7 +1,15 @@
 import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
+import StudentContext from '../../context/studentReportCard/studentContext';
 
 const StudentItem = ({student}) => {
-  const { name, std, section } = student;
+  const context = useContext(StudentContext);
+  const { id, name, std, section } = student;
+
+  const onDelete = e => {
+    e.preventDefault();
+    context.deleteStudent(id);
+  };
 
   return (
     <div className="card bg-light">
@@ -10,7 +18,7 @@ const StudentItem = ({student}) => {
       </h3>
       <p>
         <button className="btn btn-dark btn-sm">Edit</button>
-        <button className="btn btn-danger btn-sm">Delete</button>
+        <button onClick={onDelete} className="btn btn-danger btn-sm">Delete</button>
       </p>
     </div>
   );
