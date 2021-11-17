@@ -43,12 +43,27 @@ export default (state, action) => {
       return {
         ...state,
         current: action.payload
-      }
+    }
 
     case CLEAR_CURRENT:
       return {
         ...state,
         current: null
+    }
+
+    case FILTER_STUDENTS:
+      return {
+        ...state,
+        filtered: state.students.filter(student => {
+          const regex = new RegExp(`${action.payload}`, 'gi');
+          return student.name.match(regex);
+        })      
+      }
+
+    case CLEAR_FILTER:
+      return {
+        ...state,
+        filtered: null
       }
     default:
       return state;

@@ -36,7 +36,8 @@ const StudentState = props => {
         section: 'A'
       }
     ],
-    current: null
+    current: null,
+    filtered: null
   };
 
   const [ state, dispatch ] = useReducer(studentReducer, initialState);
@@ -67,15 +68,28 @@ const StudentState = props => {
     dispatch({type: CLEAR_CURRENT});
   };
 
+  // Filter Students
+  const filterStudents = text => {
+    dispatch({type: FILTER_STUDENTS, payload: text});
+  }
+
+  // Clear Filter
+  const clearFilter = () => {
+    dispatch({type: CLEAR_FILTER});
+  };
+
   return (
     <studentContext.Provider value={{
       students: state.students,
       currentStudent: state.current,
+      filtered: state.filtered,
       addStudent,
       updateStudent,
       deleteStudent,
       setStudent,
-      clearStudent
+      clearStudent,
+      filterStudents,
+      clearFilter
     }}>
       {props.children}
     </studentContext.Provider>
