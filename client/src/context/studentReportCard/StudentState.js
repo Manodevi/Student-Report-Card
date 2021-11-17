@@ -1,5 +1,6 @@
 import React, { useReducer } from 'react';
 import {v4 as uuid} from 'uuid';
+import axios from 'axios';
 import studentContext from "./studentContext";
 import studentReducer from './studentReducer';
 import {
@@ -11,41 +12,37 @@ import {
     SET_ALERT,
     REMOVE_ALERT,
     SET_CURRENT,
-    CLEAR_CURRENT
+    CLEAR_CURRENT,
+    STUDENT_ERROR
 } from '../types' ;
 
 const StudentState = props => {
   const initialState = {
-    students: [
-      {
-        id: 2,
-        name: 'Vaishu',
-        std: '1',
-        section: 'B'
-      },
-      {
-        id: 4,
-        name: 'DDDDD',
-        std: '5',
-        section: 'D'
-      },
-      {
-        id: 8,
-        name: 'XXXXZZZZ',
-        std: '10',
-        section: 'A'
-      }
-    ],
+    students: [],
     current: null,
-    filtered: null
+    filtered: null,
+    error: null
   };
 
   const [ state, dispatch ] = useReducer(studentReducer, initialState);
 
   // Add Student
-  const addStudent = student => {
-    student.id = uuid();    
-    dispatch({type: ADD_STUDENT, payload: student});
+  const addStudent = async (student) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+
+    try {
+      const res = await axios.post('/api/students', student, config);
+      console.log(res);
+      
+      dispatch({type: ADD_STUDENT, payload: res.data});
+    } catch (error) {
+      dispatch({type: STUDENT_ERROR, payload: error.response.data.errors});
+    }
+
   };
 
   // Update Student
@@ -83,6 +80,7 @@ const StudentState = props => {
       students: state.students,
       currentStudent: state.current,
       filtered: state.filtered,
+      error: state.error,
       addStudent,
       updateStudent,
       deleteStudent,

@@ -7,7 +7,8 @@ import {
     SET_ALERT,
     REMOVE_ALERT,
     SET_CURRENT,
-    CLEAR_CURRENT
+    CLEAR_CURRENT,
+    STUDENT_ERROR
 
 } from '../types' ;
 
@@ -58,13 +59,20 @@ export default (state, action) => {
           const regex = new RegExp(`${action.payload}`, 'gi');
           return student.name.match(regex);
         })      
-      }
+    }
 
     case CLEAR_FILTER:
       return {
         ...state,
         filtered: null
-      }
+    }
+
+    case STUDENT_ERROR:
+      return {
+        ...state,
+        error: action.payload.map(err => err.msg)
+    };
+
     default:
       return state;
   }
