@@ -1,9 +1,9 @@
 import React, { useReducer } from 'react';
-import {v4 as uuid} from 'uuid';
 import axios from 'axios';
 import studentContext from "./studentContext";
 import studentReducer from './studentReducer';
 import {
+    GET_STUDENTS,
     ADD_STUDENT,
     DELETE_STUDENT,
     UPDATE_STUDENT,
@@ -13,18 +13,29 @@ import {
     REMOVE_ALERT,
     SET_CURRENT,
     CLEAR_CURRENT,
-    STUDENT_ERROR
+    STUDENT_ERROR    
 } from '../types' ;
 
 const StudentState = props => {
   const initialState = {
-    students: [],
+    students: null,
     current: null,
     filtered: null,
     error: null
   };
 
   const [ state, dispatch ] = useReducer(studentReducer, initialState);
+
+  // Get Students
+  const getStudents = async () => {   
+    try {
+      const res = await axios.get('/api/students');      
+      
+      dispatch({type: GET_STUDENTS, payload: res.data});
+    } catch (error) {      
+      dispatch({type: STUDENT_ERROR, payload: error.response.data.errors});
+    }  
+  };
 
   // Add Student
   const addStudent = async (student) => {
@@ -35,8 +46,7 @@ const StudentState = props => {
     };
 
     try {
-      const res = await axios.post('/api/students', student, config);
-      console.log(res);
+      const res = await axios.post('/api/students', student, config);      
       
       dispatch({type: ADD_STUDENT, payload: res.data});
     } catch (error) {
@@ -81,6 +91,7 @@ const StudentState = props => {
       currentStudent: state.current,
       filtered: state.filtered,
       error: state.error,
+      getStudents,
       addStudent,
       updateStudent,
       deleteStudent,

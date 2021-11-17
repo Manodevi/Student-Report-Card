@@ -1,4 +1,5 @@
 import {
+    GET_STUDENTS,
     ADD_STUDENT,
     DELETE_STUDENT,
     UPDATE_STUDENT,
@@ -9,11 +10,15 @@ import {
     SET_CURRENT,
     CLEAR_CURRENT,
     STUDENT_ERROR
-
 } from '../types' ;
 
 export default (state, action) => {
   switch (action.type) {
+    case GET_STUDENTS:
+      return {
+        ...state,
+        students: action.payload
+      }
     case ADD_STUDENT:      
       return {
         ...state,
