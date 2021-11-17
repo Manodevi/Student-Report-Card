@@ -10,10 +10,10 @@ const Students = () => {
     <Fragment>
       {filtered !== null
         ? filtered.map(student => (
-            <StudentItem key={student.id} student={student} />  
+            <StudentItem key={student._id} student={student} />  
         ))
         : students.map(student => (
-          <StudentItem key={student.id} student={student} />
+          <StudentItem key={student._id} student={student} />
         ))
       }     
     </Fragment>
