@@ -16,6 +16,14 @@ export default (state, action) => {
         students: [action.payload, ...state.students]
       };
       
+    case DELETE_STUDENT:
+      
+      return {
+        ...state,
+        students: state.students.filter(student => {
+          return student.id != action.payload
+        })
+      }
     default:
       return state;
   }

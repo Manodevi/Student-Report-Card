@@ -43,12 +43,12 @@ const StudentState = props => {
     student.id = uuid();    
     dispatch({type: ADD_STUDENT, payload: student});
   };
-/*
-  // Delete Student
-  const deleteStudent = () => {
-    dispatch(DELETE_STUDENT);
-  };
 
+  // Delete Student
+  const deleteStudent = student => {
+    dispatch({type: DELETE_STUDENT, payload: student});
+  };
+/*
   // Set Current Student
   const currentStudent = () => {
     dispatch(ADD_STUDENT);
@@ -70,7 +70,8 @@ const StudentState = props => {
   return (
     <studentContext.Provider value={{
       students: state.students,
-      addStudent
+      addStudent,
+      deleteStudent
     }}>
       {props.children}
     </studentContext.Provider>
