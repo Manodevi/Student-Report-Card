@@ -3,7 +3,7 @@ import StudentContext from '../../context/studentReportCard/studentContext';
 
 const StudentForm  = () => {
   const context = useContext(StudentContext);
-  const { addStudent, currentStudent, clearStudent } = context;
+  const { addStudent, currentStudent, clearStudent, updateStudent } = context;
   const [student, setStudent] = useState({
     name: '',
     std: '',
@@ -40,7 +40,12 @@ const StudentForm  = () => {
 
   const onSubmit = e => {
     e.preventDefault();
-    addStudent(student);
+    if(currentStudent) {
+      updateStudent(student);
+      clearStudent();
+    } else {
+      addStudent(student);
+    }    
     setStudent({
       name: '',
       std: '',
