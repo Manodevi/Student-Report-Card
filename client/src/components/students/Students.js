@@ -5,13 +5,17 @@ import StudentItem from './StudentItem';
 const Students = () => {
   const context = useContext(StudentContext);
 
-  const { students } = context;
+  const { students, filtered } = context;
   return (
     <Fragment>
-      {students.map(student => (
-        <StudentItem key={student.id} student={student} />
-      )
-      )}      
+      {filtered !== null
+        ? filtered.map(student => (
+            <StudentItem key={student.id} student={student} />  
+        ))
+        : students.map(student => (
+          <StudentItem key={student.id} student={student} />
+        ))
+      }     
     </Fragment>
   );
 }

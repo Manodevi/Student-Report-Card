@@ -1,5 +1,6 @@
 import Students from '../students/Students';
 import StudentForm from '../students/StudentForm';
+import StudentFilter from '../students/StudentFilter';
 
 const Home = () => {
   return (
@@ -7,7 +8,10 @@ const Home = () => {
       <div>
         <StudentForm />
       </div>
-      <div><Students /></div>
+      <div>
+        <StudentFilter />
+        <Students />
+      </div>
     </div>
   );
 };
