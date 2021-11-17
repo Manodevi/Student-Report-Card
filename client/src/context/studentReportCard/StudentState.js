@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-// import uuid from 'uuid';
+import {v4 as uuid} from 'uuid';
 import studentContext from "./studentContext";
 import studentReducer from './studentReducer';
 import {
@@ -39,8 +39,9 @@ const StudentState = props => {
   const [ state, dispatch ] = useReducer(studentReducer, initialState);
 
   // Add Student
-  const addStudent = () => {
-    dispatch(ADD_STUDENT);
+  const addStudent = student => {
+    student.id = uuid();    
+    dispatch({type: ADD_STUDENT, payload: student});
   };
 /*
   // Delete Student
