@@ -18,6 +18,18 @@ export default (state, action) => {
         ...state,
         students: [action.payload, ...state.students]
       };
+
+    case UPDATE_STUDENT:      
+      return {
+        ...state,
+        students: state.students.map(student=> {
+          if(student.id === action.payload.id) {
+            return action.payload;
+          } else {
+            return student;
+          }
+        })
+      };
       
     case DELETE_STUDENT:      
       return {

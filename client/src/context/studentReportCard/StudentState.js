@@ -47,6 +47,11 @@ const StudentState = props => {
     dispatch({type: ADD_STUDENT, payload: student});
   };
 
+  // Update Student
+  const updateStudent = student => {       
+    dispatch({type: UPDATE_STUDENT, payload: student});
+  };
+
   // Delete Student
   const deleteStudent = student => {
     dispatch({type: DELETE_STUDENT, payload: student});
@@ -67,6 +72,7 @@ const StudentState = props => {
       students: state.students,
       currentStudent: state.current,
       addStudent,
+      updateStudent,
       deleteStudent,
       setStudent,
       clearStudent
