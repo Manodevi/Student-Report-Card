@@ -5,7 +5,10 @@ import {
     FILTER_STUDENTS,
     CLEAR_FILTER,
     SET_ALERT,
-    REMOVE_ALERT
+    REMOVE_ALERT,
+    SET_CURRENT,
+    CLEAR_CURRENT
+
 } from '../types' ;
 
 export default (state, action) => {
@@ -16,13 +19,24 @@ export default (state, action) => {
         students: [action.payload, ...state.students]
       };
       
-    case DELETE_STUDENT:
-      
+    case DELETE_STUDENT:      
       return {
         ...state,
         students: state.students.filter(student => {
           return student.id != action.payload
         })
+      }
+      
+    case SET_CURRENT:
+      return {
+        ...state,
+        current: action.payload
+      }
+
+    case CLEAR_CURRENT:
+      return {
+        ...state,
+        current: null
       }
     default:
       return state;

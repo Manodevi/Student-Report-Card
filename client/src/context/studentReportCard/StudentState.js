@@ -9,7 +9,9 @@ import {
     FILTER_STUDENTS,
     CLEAR_FILTER,
     SET_ALERT,
-    REMOVE_ALERT
+    REMOVE_ALERT,
+    SET_CURRENT,
+    CLEAR_CURRENT
 } from '../types' ;
 
 const StudentState = props => {
@@ -33,7 +35,8 @@ const StudentState = props => {
         std: '10',
         section: 'A'
       }
-    ]
+    ],
+    current: null
   };
 
   const [ state, dispatch ] = useReducer(studentReducer, initialState);
@@ -48,30 +51,25 @@ const StudentState = props => {
   const deleteStudent = student => {
     dispatch({type: DELETE_STUDENT, payload: student});
   };
-/*
+
   // Set Current Student
-  const currentStudent = () => {
-    dispatch(ADD_STUDENT);
+  const setStudent = student => {
+    dispatch({type: SET_CURRENT, payload: student});
   };
-  // Add 
-  const addStudent = () => {
-    dispatch(ADD_STUDENT);
+
+  // Clear Current Student
+  const clearStudent = student => {
+    dispatch({type: CLEAR_CURRENT});
   };
-  // Add Student
-  const addStudent = () => {
-    dispatch(ADD_STUDENT);
-  };
-  // Add Student
-  const addStudent = () => {
-    dispatch(ADD_STUDENT);
-  };
-  */
 
   return (
     <studentContext.Provider value={{
       students: state.students,
+      currentStudent: state.current,
       addStudent,
-      deleteStudent
+      deleteStudent,
+      setStudent,
+      clearStudent
     }}>
       {props.children}
     </studentContext.Provider>
