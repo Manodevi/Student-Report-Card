@@ -56,12 +56,25 @@ const StudentState = props => {
   };
 
   // Update Student
-  const updateStudent = student => {       
-    dispatch({type: UPDATE_STUDENT, payload: student});
+  const updateStudent = async (student) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+
+    try {
+      const res = await axios.put(`/api/students/${student._id}`, student, config);            
+      dispatch({type: UPDATE_STUDENT, payload: res.data});
+    } catch (error) {
+      console.log(error.response.data);
+      dispatch({type: STUDENT_ERROR, payload: error.response.data.errors});
+    }
   };
 
   // Delete Student
-  const deleteStudent = student => {
+  const deleteStudent = async (student) => {
+    const res = await axios.delete(`/api/students/${student}`);
     dispatch({type: DELETE_STUDENT, payload: student});
   };
 

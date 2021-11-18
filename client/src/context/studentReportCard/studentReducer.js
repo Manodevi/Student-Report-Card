@@ -29,7 +29,7 @@ export default (state, action) => {
       return {
         ...state,
         students: state.students.map(student=> {
-          if(student.id === action.payload.id) {
+          if(student._id === action.payload._id) {
             return action.payload;
           } else {
             return student;
@@ -41,7 +41,7 @@ export default (state, action) => {
       return {
         ...state,
         students: state.students.filter(student => {
-          return student.id != action.payload
+          return student._id !== action.payload
         })
       }
       
