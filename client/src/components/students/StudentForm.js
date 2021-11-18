@@ -58,15 +58,15 @@ const StudentForm  = () => {
       <h2 className="text-primary">{currentStudent? 'Edit Contact' : 'Add Student'}</h2>
       <input type="text" placeholder="Name" name="name" value={name} onChange={onChange} />
       <select type="number" placeholder="Class" name="std" value={std} onChange={onChange}>
-        <option value="" disbaled selected>Select Class</option>
+        <option value="" disabled>Select Class</option>
         {stdOption.map((option, index) => (          
-          <option value={index+1}>{option}</option>
+          <option key={`option_${index+1}`} value={index+1}>{option}</option>
         ))}      
       </select>
 
       <input type="text" placeholder="Section" name="section" value={section} onChange={onChange} />
       <div>
-        <input type="Submit" value={currentStudent? 'Update Contact' : 'Add Student'} className="btn btn-primary btn-block" />
+        <input type="Submit" defaultValue={currentStudent? 'Update Contact' : 'Add Student'} className="btn btn-primary btn-block" />
       </div>
       {currentStudent && 
       <div>
