@@ -93,10 +93,10 @@ router.put(
 
       if(!student) return res.status(404).json({ msg: "Student not found" });
 
-      student = await Student.findByIdAndUpdate(req.params.id, {
-        $set: studentFields });
-
+      student = await Student.findByIdAndUpdate(req.params.id, 
+                  studentFields, {new: true});
       res.json(student);
+
     } catch (error) {
       console.error(error.message);
       res.status(500).send('Server Error');
