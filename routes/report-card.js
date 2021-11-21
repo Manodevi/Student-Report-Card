@@ -86,7 +86,7 @@ router.put(
       if(!reportCard) return res.status(404).json({ msg: `Report Card not found` });
 
       reportCard = await ReportCard.findByIdAndUpdate(req.params.id, {
-        $set: reportCardFields });
+        $set: reportCardFields }, { new: true });
 
       res.json(reportCard);
     } catch (error) {
