@@ -13,7 +13,10 @@ import {
     REMOVE_ALERT,
     SET_CURRENT,
     CLEAR_CURRENT,
-    STUDENT_ERROR    
+    STUDENT_ERROR,
+    SET_REPORTCARD,
+    UPDATE_REPORTCARD,
+    CLEAR_REPORTCARD
 } from '../types' ;
 
 const StudentState = props => {
@@ -21,7 +24,8 @@ const StudentState = props => {
     students: null,
     current: null,
     filtered: null,
-    error: null
+    error: null,
+    reportcard: null
   };
 
   const [ state, dispatch ] = useReducer(studentReducer, initialState);
@@ -98,12 +102,46 @@ const StudentState = props => {
     dispatch({type: CLEAR_FILTER});
   };
 
+  // Set Report Card of a student
+  const setReportCard = async (student) => {
+    try {
+      const res = await axios.get(`/api/report-card/${student}`);
+      dispatch({type: SET_REPORTCARD, payload: res.data});
+    } catch (error) {      
+      dispatch({type: STUDENT_ERROR, payload: error.response.data.errors});
+    }  
+  };
+
+  // Update Report Card of a student
+  const updateReportCard = async (report_id, updatedValues) => {
+    console.log(report_id, updatedValues);
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      };  
+            
+      const res = await axios.put(`/api/report-card/${report_id}`, updatedValues, config);
+      dispatch({type: UPDATE_REPORTCARD, payload: res.data});
+    } catch (error) {
+      console.log(error.response.data);
+      dispatch({type: STUDENT_ERROR, payload: error.response.data.errors});
+    } 
+  };
+
+  // Clear Report Card
+  const clearReportCard = () => {
+    dispatch({type: CLEAR_REPORTCARD});
+  };
+
   return (
     <studentContext.Provider value={{
       students: state.students,
       currentStudent: state.current,
       filtered: state.filtered,
       error: state.error,
+      reportcard: state.reportcard,
       getStudents,
       addStudent,
       updateStudent,
@@ -111,7 +149,10 @@ const StudentState = props => {
       setStudent,
       clearStudent,
       filterStudents,
-      clearFilter
+      clearFilter,
+      setReportCard,
+      updateReportCard,
+      clearReportCard
     }}>
       {props.children}
     </studentContext.Provider>

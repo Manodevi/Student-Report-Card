@@ -9,7 +9,10 @@ import {
     REMOVE_ALERT,
     SET_CURRENT,
     CLEAR_CURRENT,
-    STUDENT_ERROR
+    STUDENT_ERROR,
+    SET_REPORTCARD,
+    UPDATE_REPORTCARD,
+    CLEAR_REPORTCARD
 } from '../types' ;
 
 export default (state, action) => {
@@ -18,7 +21,8 @@ export default (state, action) => {
       return {
         ...state,
         students: action.payload
-      }
+      };
+
     case ADD_STUDENT:      
       return {
         ...state,
@@ -43,19 +47,19 @@ export default (state, action) => {
         students: state.students.filter(student => {
           return student._id !== action.payload
         })
-      }
+      };
       
     case SET_CURRENT:
       return {
         ...state,
         current: action.payload
-    }
+      };
 
     case CLEAR_CURRENT:
       return {
         ...state,
         current: null
-    }
+      };
 
     case FILTER_STUDENTS:
       return {
@@ -64,19 +68,45 @@ export default (state, action) => {
           const regex = new RegExp(`${action.payload}`, 'gi');
           return student.name.match(regex);
         })      
-    }
+      };
 
     case CLEAR_FILTER:
       return {
         ...state,
         filtered: null
-    }
+      };
 
     case STUDENT_ERROR:
       return {
         ...state,
         error: action.payload.map(err => err.msg)
-    };
+      };
+
+    case SET_REPORTCARD:
+      return {
+        ...state,
+        reportcard: action.payload
+      }
+
+    case UPDATE_REPORTCARD:      
+      const updatedReportCard = state.reportcard.map(report => {
+        if(report._id === action.payload._id) {          
+          return action.payload;
+        } else {
+          return report;
+        }
+      });
+      
+      return {
+        ...state,
+        reportcard: updatedReportCard
+      }
+
+    case CLEAR_REPORTCARD:
+      return {
+        ...state,
+        reportcard: null
+      };
 
     default:
       return state;
