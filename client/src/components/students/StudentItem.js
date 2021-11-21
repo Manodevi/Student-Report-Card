@@ -1,15 +1,16 @@
 import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import StudentContext from '../../context/studentReportCard/studentContext';
 
 const StudentItem = ({student}) => {
   const context = useContext(StudentContext);
   const { deleteStudent, setStudent, clearStudent } = context;
-  const { id, name, std, section } = student;
+  const { _id, name, std, section } = student;
 
   const onDelete = e => {
     e.preventDefault();
-    deleteStudent(id);   
+    deleteStudent(_id);   
     clearStudent();
   };
 
@@ -26,6 +27,9 @@ const StudentItem = ({student}) => {
       <p>
         <button onClick={onEdit} className="btn btn-dark btn-sm">Edit</button>
         <button onClick={onDelete} className="btn btn-danger btn-sm">Delete</button>
+        <Link to={`/students/${_id}/report-card`} style={{float: 'right'}} className="btn btn-secondary btn-sm">
+          Report Card
+        </Link>
       </p>
     </div>
   );
