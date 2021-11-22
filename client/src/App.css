@@ -2,7 +2,8 @@
 
 /* Global Styles */
 :root {
-  --primary-color: #dc3545;
+  --primary-color: #003699;
+  --secondary-color: yellowgreen;
   --dark-color: #333333;
   --light-color: #f4f4f4;
   --danger-color: #dc3545;
@@ -74,16 +75,12 @@ img {
   color: var(--primary-color);
 }
 
+.text-secondary {
+  color: var(--secondary-color);
+}
+
 .text-dark {
   color: var(--dark-color);
-}
-
-.text-success {
-  color: var(--success-color);
-}
-
-.text-danger {
-  color: var(--danger-color);
 }
 
 .text-center {
@@ -96,17 +93,6 @@ img {
 
 .text-left {
   text-align: left;
-}
-
-/* Center All */
-.all-center {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin: auto;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
 }
 
 /* Cards */
@@ -181,7 +167,7 @@ img {
 .grid-2 {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-gap: 1rem;
+  grid-gap: 2rem;
 }
 
 .grid-3 {
@@ -193,7 +179,13 @@ img {
 .grid-4 {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-gap: 1rem;
+  grid-gap: 2rem;
+}
+
+.grid-2-3 {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  grid-gap: 2rem;
 }
 
 .btn {
@@ -227,7 +219,6 @@ img {
 }
 
 .badge {
-  display: inline-block;
   font-size: 0.8rem;
   padding: 0.2rem 0.7rem;
   text-align: center;
@@ -250,6 +241,14 @@ img {
 .badge-primary,
 .alert-primary {
   background: var(--primary-color);
+  color: #fff;
+}
+
+.btn-secondary,
+.bg-secondary,
+.badge-secondary,
+.alert-secondary {
+  background: var(--secondary-color);
   color: #fff;
 }
 
@@ -305,7 +304,6 @@ img {
 
 .round-img {
   border-radius: 50%;
-  width: 60px;
 }
 
 /* Forms */
@@ -337,6 +335,27 @@ button {
   font: inherit;
 }
 
+.form-group {
+  margin: 1.2rem 0;
+}
+
+.form-group input {
+  margin: 0.2rem 0;
+}
+
+.form-container {
+  max-width: 500px;
+  margin: 2rem auto;
+  overflow: hidden;
+  padding: 0 2rem;
+}
+
+.form-container h1,
+h2,
+h3 {
+  text-align: center;
+}
+
 table th,
 table td {
   padding: 1rem;
@@ -355,6 +374,7 @@ table th {
   padding: 0.7rem 2rem;
   z-index: 1;
   width: 100%;
+  border-bottom: solid 1px var(--primary-color);
   opacity: 0.9;
   margin-bottom: 1rem;
 }
@@ -377,8 +397,105 @@ table th {
   margin-right: 0.6rem;
 }
 
+/* Animation (Add After) */
+.item-enter {
+  opacity: 0;
+}
+.item-enter-active {
+  opacity: 1;
+  transition: opacity 1000ms ease-in;
+}
+.item-exit {
+  opacity: 1;
+}
+.item-exit-active {
+  opacity: 0;
+  transition: opacity 1000ms ease-in;
+}
+
+.report-card-container {
+  display: flex;
+  flex-direction: column;
+  color: var(--secondary-color);
+}
+
+.report-card-title {
+  text-align: center;
+}
+
+.report-card-title,
+.report-card-values {
+  display: grid;
+  grid-template-columns: 35% 32.5% 32.5%;
+  grid-gap: 0.1rem;  
+}
+
+.report-card-title .report-card-term1 > div:first-child,
+.report-card-title .report-card-term2 > div:first-child {
+  grid-column: 1 / 3;
+}
+
+.report-card-term1, .report-card-term2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 0.1rem;
+}
+
+.report-card-block {
+  height: 2.5rem;
+  border: 1px solid var(--primary-color);
+  line-height: 2.5rem;
+  margin-bottom: 0.1rem;
+}
+
+.report-card-block select {
+  border: none;
+  outline: none;
+}
+
+.report-card-button {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1rem;
+}
+
+.report-card-title .report-card-term1 div,
+.report-card-title .report-card-term2 div,
+.report-card-title-block {
+  border: 1px solid var(--primary-color);
+  margin-bottom: 0.1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.report-card-values .report-subject {
+  padding-left: 0.3rem;
+}
+
+@media (max-width: 900px) {
+  .report-card-container {
+    font-size: 0.75rem;
+  }
+
+  .report-card-block {
+    height: 1.5rem;
+    line-height: 1.5rem;
+  }
+
+  .report-card-container select {
+    font-size: 0.6rem;    
+    padding-bottom: 0;
+  }
+
+  .report-card-term1, .report-card-term2 {    
+    grid-template-columns: 48% 48%;    
+  }
+}
+
+
 /* Mobile Styles */
-@media (max-width: 700px) {
+@media (max-width: 768px) {
   .hide-sm {
     display: none;
   }
@@ -408,8 +525,36 @@ table th {
     text-align: center;
   }
 
+  .navbar h1 {
+    margin-bottom: 0.6rem;
+  }
+
   .navbar ul {
     text-align: center;
     justify-content: center;
+  }
+
+  .report-card-container {
+    font-size: 0.5rem;
+  }  
+
+  .report-card-block {
+    height: 1rem;
+    line-height: 1rem;
+  }
+
+  .report-card-title,
+  .report-card-values {    
+    grid-template-columns: 27% 33% 33%;
+    grid-gap: 0.1rem;  
+  }
+
+  .report-card-term1, .report-card-term2 {    
+    grid-template-columns: 48% 48%;    
+  }
+  
+  .report-card-container select {
+    font-size: 0.5rem;    
+    padding: 0;
   }
 }
