@@ -14,7 +14,7 @@ import {
     SET_CURRENT,
     CLEAR_CURRENT,
     STUDENT_ERROR,
-    SET_REPORTCARD,
+    SET_REPORTCARD,    
     UPDATE_REPORTCARD,
     CLEAR_REPORTCARD
 } from '../types' ;
@@ -112,6 +112,25 @@ const StudentState = props => {
     }  
   };
 
+  // Add new report Card of a student
+  const addReportCard = async (reportCardValues) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };    
+
+    reportCardValues.id = state.current;
+    try {
+      const res = await axios.post('/api/report-card', reportCardValues, config);      
+      
+      setReportCard(state.current);
+    } catch (error) {
+      dispatch({type: STUDENT_ERROR, payload: error.response.data.errors});
+    }
+
+  };
+
   // Update Report Card of a student
   const updateReportCard = async (report_id, updatedValues) => {
     console.log(report_id, updatedValues);
@@ -150,7 +169,7 @@ const StudentState = props => {
       clearStudent,
       filterStudents,
       clearFilter,
-      setReportCard,
+      setReportCard,      
       updateReportCard,
       clearReportCard
     }}>
