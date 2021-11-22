@@ -17,6 +17,7 @@ const ReportCard = props => {
       clearStudent();
       clearReportCard();
     };
+    // eslint-disable-next-line
   }, [id]);
 
   

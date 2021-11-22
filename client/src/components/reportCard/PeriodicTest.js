@@ -1,5 +1,4 @@
-import React, { Fragment, useState, useRef, useContext, useEffect } from 'react';
-import StudentContext from '../../context/studentReportCard/studentContext';
+import React, { useState, useEffect } from 'react';
 
 const grades = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'D1', 'D2', 'E1', 'E2'];
 
@@ -23,11 +22,12 @@ const PeriodicTest = ({subjects, test, reportValues, onUpdate}) => {
   return (    
       <form name={test} onSubmit={onSubmit}>
           {subjects.map(subject => (
-            <div className="report-card-block">
-              <select name={subject} onChange={onChange} value={testReport[subject]}>
+            <div key={`${test}-div-${subject}`} className="report-card-block">
+              <select name={subject}                 
+                onChange={onChange} value={testReport[subject]}>
                 <option value=""></option>
                 {grades.map(grade => (
-                  <option value={grade} selected={testReport[subject] === grade ? true :false}>
+                  <option key={`${test}-${grade}`} value={grade}>
                     {grade}
                   </option>
                   )

@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useRef, useContext, useEffect } from 'react';
+import React, { Fragment, useState, useContext, useEffect } from 'react';
 import StudentContext from '../../context/studentReportCard/studentContext';
 import PeriodicTest from './PeriodicTest';
 
@@ -58,6 +58,7 @@ const ReportCardForm = props => {
         pt4: initialReport
       });
     };
+    // eslint-disable-next-line
   }, [reportcard]);
 
   const onUpdate = (test, updatedValues) => {   
@@ -89,14 +90,14 @@ const ReportCardForm = props => {
         <div className="report-card-title">
           <div className="report-card-title-block"><span>Subjects</span></div>
           <div className="report-card-term1">
-            <div>Term1</div>
-            <div>PT 1</div>
-            <div>PT 2</div>
+            <div key="report-card-term1">Term1</div>
+            <div key="report-card-pt1">PT 1</div>
+            <div key="report-card-pt2">PT 2</div>
           </div>
           <div className="report-card-term2">
-            <div>Term 2</div>
-            <div>PT 3</div>
-            <div>PT 4</div>
+            <div key="report-card-term2">Term 2</div>
+            <div key="report-card-pt3">PT 3</div>
+            <div key="report-card-pt4">PT 4</div>
           </div>
         </div>
 

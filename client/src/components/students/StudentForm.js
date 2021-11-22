@@ -20,9 +20,8 @@ const StudentForm  = () => {
         section: ''
       });
     }
-  }, [currentStudent]);
+  }, [currentStudent]);  
   
-  const { name, std, section } = student;
   const stdOption = [];
   for(let i = 1; i <=12; i++) {
     stdOption.push(`Class ${i}`);
@@ -56,15 +55,15 @@ const StudentForm  = () => {
   return (
     <form onSubmit={onSubmit}>
       <h2 className="text-primary">{currentStudent? 'Edit Contact' : 'Add Student'}</h2>
-      <input type="text" placeholder="Name" name="name" value={name} onChange={onChange} />
-      <select type="number" placeholder="Class" name="std" value={std} onChange={onChange}>
+      <input type="text" placeholder="Name" name="name" value={student.name} onChange={onChange} />
+      <select type="number" placeholder="Class" name="std" value={student.std} onChange={onChange}>
         <option value="" disabled>Select Class</option>
         {stdOption.map((option, index) => (          
           <option key={`option_${index+1}`} value={index+1}>{option}</option>
         ))}      
       </select>
 
-      <input type="text" placeholder="Section" name="section" value={section} onChange={onChange} />
+      <input type="text" placeholder="Section" name="section" value={student.section} onChange={onChange} />
       <div>
         <input type="Submit" defaultValue={currentStudent? 'Update Contact' : 'Add Student'} className="btn btn-primary btn-block" />
       </div>
