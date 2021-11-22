@@ -7,12 +7,14 @@ import StudentContext from '../../context/studentReportCard/studentContext';
 
 const ReportCard = props => {
   const context = useContext(StudentContext);
-  const { setReportCard, clearReportCard, reportcard } = context;
+  const { setReportCard, setStudent, clearStudent, clearReportCard } = context;
   const { id } = useParams();
 
   useEffect(() => {    
-    setReportCard(id);    
+    setStudent(id);
+    setReportCard(id);
     return () => {      
+      clearStudent();
       clearReportCard();
     };
   }, [id]);
