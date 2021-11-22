@@ -5,11 +5,12 @@ import StudentItem from './StudentItem';
 const Students = () => {
   const context = useContext(StudentContext);
   const { students, filtered, getStudents } = context;
-
+  
   useEffect(() => {
     getStudents();
     // eslint-disable-next-line
   }, []);
+  
 
   /*
   if (!students) {
