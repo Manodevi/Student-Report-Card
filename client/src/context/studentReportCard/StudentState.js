@@ -1,5 +1,6 @@
 import React, { useReducer } from 'react';
 import axios from 'axios';
+import { v4 as uuidv4} from 'uuid';
 import studentContext from "./studentContext";
 import studentReducer from './studentReducer';
 import {
@@ -25,7 +26,8 @@ const StudentState = props => {
     current: null,
     filtered: null,
     error: null,
-    reportcard: null
+    reportcard: null,
+    alerts: []
   };
 
   const [ state, dispatch ] = useReducer(studentReducer, initialState);
@@ -78,7 +80,7 @@ const StudentState = props => {
 
   // Delete Student
   const deleteStudent = async (student) => {
-    const res = await axios.delete(`/api/students/${student}`);
+    await axios.delete(`/api/students/${student}`);
     dispatch({type: DELETE_STUDENT, payload: student});
   };
 
@@ -122,11 +124,25 @@ const StudentState = props => {
 
     reportCardValues.id = state.current;
     try {
-      const res = await axios.post('/api/report-card', reportCardValues, config);      
+      await axios.post('/api/report-card', reportCardValues, config);      
       
       setReportCard(state.current);
+      const id = uuidv4();
+      dispatch({
+        type: SET_ALERT,
+        payload: {msg: [{msg: 'Added Successfully...'}], type : 'success', id},
+      });
+
+      setTimeout(() => dispatch({type: REMOVE_ALERT, payload: id}), 5000);
     } catch (error) {
-      dispatch({type: STUDENT_ERROR, payload: error.response.data.errors});
+      const id = uuidv4();
+      dispatch({
+        type: SET_ALERT,
+        payload: {msg: error.response.data.errors, type : 'danger', id},
+      });
+
+      setTimeout(() => dispatch({type: REMOVE_ALERT, payload: id}), 5000);
+      // dispatch({type: STUDENT_ERROR, payload: error.response.data.errors});
     }
 
   };
@@ -161,6 +177,7 @@ const StudentState = props => {
       filtered: state.filtered,
       error: state.error,
       reportcard: state.reportcard,
+      alerts: state.alerts,
       getStudents,
       addStudent,
       updateStudent,
@@ -171,6 +188,7 @@ const StudentState = props => {
       clearFilter,
       setReportCard,      
       updateReportCard,
+      addReportCard,
       clearReportCard
     }}>
       {props.children}
