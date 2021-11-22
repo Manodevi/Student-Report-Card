@@ -17,15 +17,13 @@ const PeriodicTest = ({subjects, test, reportValues, onUpdate}) => {
 
   const onSubmit = e => {
     e.preventDefault();
-    onUpdate(testReport);
+    onUpdate(test, testReport);
   };
 
-  return (
-    <div>
-      <div>{test}</div>
+  return (    
       <form name={test} onSubmit={onSubmit}>
-        <div>
           {subjects.map(subject => (
+            <div className="report-card-block">
               <select name={subject} onChange={onChange} value={testReport[subject]}>
                 <option value=""></option>
                 {grades.map(grade => (
@@ -35,12 +33,16 @@ const PeriodicTest = ({subjects, test, reportValues, onUpdate}) => {
                   )
                 )}
               </select>
-              ))
-            }
-            <input type="submit" value="Update" />
             </div>
+            )
+          )}            
+        <div className="report-card-button">
+          <button type="submit" className="btn btn-sm btn-primary">
+            {testReport._id ? 'Update' : 'Add'}
+          </button>
+        </div>
       </form>
-    </div>
+    
   );
 };
 
