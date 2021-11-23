@@ -14,7 +14,16 @@ My goal is to practice MERN stack.
 ### API Request Validation 
 * Done by check and validationResult methods from 'express-validator.
 
-### API Testing - POSTMAN
+### API - POSTMAN [Testing Collection](https://www.postman.com/manodevi/workspace/student-report-card/documentation/17909886-c56a515a-32b0-4996-8079-d0cc0bcd8ed7)
+
+### React
+* Axios library - to make API request.
+* React Router Dom
+* App Level State Management - __Context API__
+* React Hooks Used - 
+  * useState  
+  * useEffect
+  * useContext
 
 
 
