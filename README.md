@@ -25,5 +25,7 @@ My goal is to practice MERN stack.
   * useEffect
   * useContext
 
-
+### If I have more time - Need to work on alert messages
+* Update the messages from API in frontend
+* Currently worked on only Report Card error message
 
