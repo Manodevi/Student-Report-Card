@@ -1,5 +1,5 @@
-# Student-Report-Card
-My goal is to practice MERN stack.
+# ![Student Report Card App Demo](https://user-images.githubusercontent.com/88968771/142992160-9e015137-1874-42a6-b37e-80a58e267fd6.gif)
+Goal is to practice MERN stack.
 ## How I Worked on this app -
 
 ### Express server setup with initial routes
@@ -28,4 +28,3 @@ My goal is to practice MERN stack.
 ### If I have more time - Need to work on alert messages
 * Update the messages from API in frontend
 * Currently worked on only Report Card error message
-
