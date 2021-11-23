@@ -1,5 +1,11 @@
 # ![Student Report Card App Demo](https://user-images.githubusercontent.com/88968771/142992160-9e015137-1874-42a6-b37e-80a58e267fd6.gif)
 Goal is to practice MERN stack.
+
+## Features
+* Add/Update/Delete Student
+* Add/Update Student's Report Card
+* Report Card - consists of 2 terms with 2 periodic test each( Term1 - PT1, PT2; Term2 - PT3, PT4)
+
 ## How I Worked on this app -
 
 ### Express server setup with initial routes
